@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0a0e15">
+  <title>Dashboard del nodo · Grupo 3</title>
+
+  <!-- Paleta del tema oscuro y estilos -->
+  <link rel="stylesheet" href="tokens.css">
+  <link rel="stylesheet" href="estilos.css">
+
+  <!-- Biblioteca MQTT.js (solo hace falta internet para esta). Si no carga, el modo simulado igual funciona. -->
+  <script src="https://cdn.jsdelivr.net/npm/mqtt@5/dist/mqtt.min.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+
+<!-- =========================================================================
+     ÍCONOS: SVG insertados directamente en el HTML.
+     Grilla de 24 × 24, trazo de 1,75, sin relleno, color con currentColor
+     (las reglas están en .icon, en estilos.css).
+     ========================================================================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-termometro" viewBox="0 0 24 24"><path d="M14 14.8V5a2 2 0 0 0-4 0v9.8a4 4 0 1 0 4 0z"/><path d="M12 9v7"/></symbol>
+  <symbol id="i-gota" viewBox="0 0 24 24"><path d="M12 3.5c3.2 4 6 7 6 10.5a6 6 0 0 1-12 0c0-3.5 2.8-6.5 6-10.5z"/></symbol>
+  <symbol id="i-gas" viewBox="0 0 24 24"><path d="M3.5 9h9a2.5 2.5 0 1 0-2.5-2.5"/><path d="M3.5 13h13a3 3 0 1 1-3 3"/><path d="M3.5 17h5"/></symbol>
+  <symbol id="i-persona" viewBox="0 0 24 24"><circle cx="12" cy="5.5" r="2.5"/><path d="M12 8.5v6"/><path d="M12 11.5l-4.5 2.5"/><path d="M12 11.5l4.5 2.5"/><path d="M12 14.5l-3 6"/><path d="M12 14.5l3 6"/></symbol>
+  <symbol id="i-llama" viewBox="0 0 24 24"><path d="M12 3c1 3.5 5 5.5 5 10a5 5 0 0 1-10 0c0-2 1-3.2 2-4.2.2 1.2.8 2 1.6 2.4C10.2 8 11 5.5 12 3z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12.3l2.7 2.7L16 9.5"/></symbol>
+  <symbol id="i-triangulo" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3z"/><path d="M12 10v4"/><path d="M12 17v.01"/></symbol>
+  <symbol id="i-octogono" viewBox="0 0 24 24"><path d="M8.3 3h7.4L21 8.3v7.4L15.7 21H8.3L3 15.7V8.3z"/><path d="M12 8v5"/><path d="M12 16v.01"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M3 9.5a14 14 0 0 1 18 0"/><path d="M6 13a9.5 9.5 0 0 1 12 0"/><path d="M9 16.5a5 5 0 0 1 6 0"/><path d="M12 20v.01"/></symbol>
+  <symbol id="i-reloj" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-radio" viewBox="0 0 24 24"><circle cx="12" cy="12" r="2"/><path d="M7.8 7.8a6 6 0 0 0 0 8.4"/><path d="M16.2 7.8a6 6 0 0 1 0 8.4"/><path d="M4.9 4.9a10 10 0 0 0 0 14.2"/><path d="M19.1 4.9a10 10 0 0 1 0 14.2"/></symbol>
+  <symbol id="i-campana" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15z"/><path d="M10 21h4"/></symbol>
+  <symbol id="i-actividad" viewBox="0 0 24 24"><path d="M3 12h4l3-8 4 16 3-8h4"/></symbol>
+  <symbol id="i-ajustes" viewBox="0 0 24 24"><path d="M4 7h10"/><path d="M18 7h2"/><path d="M4 17h2"/><path d="M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></symbol>
+  <symbol id="i-sube" viewBox="0 0 24 24"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></symbol>
+  <symbol id="i-baja" viewBox="0 0 24 24"><path d="M7 7l10 10"/><path d="M17 9v8H9"/></symbol>
+  <symbol id="i-igual" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+</svg>
+
+<a class="saltar" href="#principal">Saltar al contenido</a>
+
+<div class="pagina">
+
+  <!-- =====================================================================
+       PIEZA 1 — ENCABEZADO CON ESTADO
+       Nombre del nodo, sector, sensor, indicador "En línea" y hora del último dato
+       ===================================================================== -->
+  <header class="encabezado">
+    <div class="encabezado__id">
+      <p class="sobretitulo" id="h-equipo">Dashboard del nodo</p>
+      <h1>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-radio"></use></svg>
+        Nodo <span id="h-nodo">--</span>
+      </h1>
+    </div>
+
+    <dl class="encabezado__meta">
+      <div><dt>Sector</dt><dd id="h-sector">--</dd></div>
+      <div><dt>Sensor</dt><dd id="h-sensor">--</dd></div>
+      <div><dt>Último dato</dt><dd><time id="h-ultimo">--:--:--</time> <span id="h-hace" class="aux"></span></dd></div>
+    </dl>
+
+    <p class="chip chip--neutro" id="estado-nodo" role="status">
+      <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-reloj"></use></svg>
+      <span>Sin datos</span>
+    </p>
+  </header>
+
+  <main id="principal" class="principal">
+
+    <!-- =================================================================
+         PIEZA 2 — TARJETAS DE INDICADORES
+         Una por variable: ícono, nombre, valor grande, unidad,
+         mini tendencia y comparación con hace 1 hora
+         ================================================================= -->
+    <section class="seccion" aria-labelledby="t-indicadores">
+      <h2 id="t-indicadores" class="seccion__titulo">Indicadores</h2>
+      <div class="tarjetas" id="tarjetas"></div>
+    </section>
+
+    <!-- =================================================================
+         PIEZA 3 — SEMÁFORO
+         Medidor con zonas Normal, Atención y Alerta a escala
+         ================================================================= -->
+    <section class="seccion" aria-labelledby="t-semaforo">
+      <h2 id="t-semaforo" class="seccion__titulo">Semáforo</h2>
+      <div class="panel">
+        <div class="medidores" id="medidores"></div>
+        <div class="binarios" id="binarios"></div>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         PIEZA 4 — HISTÓRICO DE 24 H
+         Franjas de umbral de fondo, grilla suave y último punto resaltado
+         ================================================================= -->
+    <section class="seccion" aria-labelledby="t-historico">
+      <h2 id="t-historico" class="seccion__titulo">Histórico de 24 h</h2>
+      <div class="panel">
+        <div class="tabs" id="tabs-grafico" role="group" aria-label="Variable del gráfico"></div>
+        <div class="grafico" id="grafico"></div>
+        <p class="aux" id="grafico-resumen"></p>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         PIEZA 5 — ALERTAS
+         Lista corta con hora, nivel y motivo
+         ================================================================= -->
+    <section class="seccion" aria-labelledby="t-alertas">
+      <h2 id="t-alertas" class="seccion__titulo">Alertas</h2>
+      <div class="panel">
+        <p class="vacio" id="alertas-vacio">
+          <svg class="icon icon--sm" aria-hidden="true" focusable="false"><use href="#i-check"></use></svg>
+          Sin alertas: todas las variables están en zona Normal.
+        </p>
+        <ol class="alertas" id="alertas" aria-live="polite" aria-label="Alertas recientes"></ol>
+      </div>
+    </section>
+
+    <!-- =================================================================
+         PIEZA 6 — SALUD DEL NODO
+         RSSI de la señal WiFi, tiempo encendido, mensajes por minuto y tópico MQTT
+         ================================================================= -->
+    <section class="seccion" aria-labelledby="t-salud">
+      <h2 id="t-salud" class="seccion__titulo">Salud del nodo</h2>
+      <dl class="salud">
+        <div class="salud__item">
+          <dt><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-wifi"></use></svg> Señal WiFi (RSSI)</dt>
+          <dd id="s-rssi">Sin dato</dd>
+        </div>
+        <div class="salud__item">
+          <dt><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-reloj"></use></svg> Tiempo encendido</dt>
+          <dd id="s-uptime">Sin dato</dd>
+        </div>
+        <div class="salud__item">
+          <dt><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-actividad"></use></svg> Mensajes por minuto</dt>
+          <dd id="s-mpm">0</dd>
+        </div>
+        <div class="salud__item salud__item--ancho">
+          <dt><svg class="icon" aria-hidden="true" focusable="false"><use href="#i-radio"></use></svg> Tópico MQTT</dt>
+          <dd><code id="s-topico">--</code></dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- =================================================================
+         CONEXIÓN Y DATOS (no es una de las 6 piezas: es para configurar y probar)
+         ================================================================= -->
+    <details class="conexion" id="conexion">
+      <summary>
+        <svg class="icon" aria-hidden="true" focusable="false"><use href="#i-ajustes"></use></svg>
+        Conexión y datos
+      </summary>
+
+      <form id="form-cfg" class="cfg" autocomplete="off">
+        <label>Fuente de datos
+          <select id="cfg-fuente">
+            <option value="simulado">Simulados (demo)</option>
+            <option value="mqtt">MQTT (broker de la escuela)</option>
+          </select>
+        </label>
+
+        <label class="solo-mqtt">IP del broker
+          <input id="cfg-host" type="text" inputmode="decimal" placeholder="IP del broker">
+        </label>
+        <label class="solo-mqtt">Puerto WebSocket
+          <input id="cfg-puerto" type="text" inputmode="numeric" placeholder="9001">
+        </label>
+        <label class="solo-mqtt">Ruta WebSocket (opcional)
+          <input id="cfg-ruta" type="text" placeholder="vacío, o /mqtt">
+        </label>
+        <label class="solo-mqtt">Usuario
+          <input id="cfg-usuario" type="text">
+        </label>
+        <label class="solo-mqtt">Contraseña
+          <input id="cfg-clave" type="password">
+        </label>
+        <label class="solo-mqtt">Tópico del nodo (mensaje JSON)
+          <input id="cfg-topico" type="text" placeholder="campus/sector/nodo/telemetria">
+        </label>
+        <label class="solo-mqtt">Prefijo de tópicos sueltos (opcional)
+          <input id="cfg-prefijo" type="text" placeholder="6to_info/A/G3">
+        </label>
+
+        <div class="botones">
+          <button type="submit" class="btn btn--primario">Aplicar</button>
+          <button type="button" class="btn" id="btn-restaurar">Restaurar valores</button>
+          <button type="button" class="btn solo-sim" id="btn-evento">Simular alerta</button>
+        </div>
+      </form>
+
+      <p class="aux" id="conexion-estado" role="status">Fuente: datos simulados.</p>
+
+      <h3 class="log__titulo">Registro de mensajes</h3>
+      <div class="log" id="log" role="log" aria-label="Registro de mensajes recibidos" tabindex="0"></div>
+    </details>
+
+  </main>
+</div>
+
+</body>
+</html>

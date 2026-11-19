@@ -1,0 +1,57 @@
+/* =========================================================================
+   tokens.css — Paleta base del tema oscuro
+   Todo el color de la página sale de acá. Los otros archivos solo usan
+   estas variables (var(--nombre)), nunca códigos de color sueltos.
+   ========================================================================= */
+:root {
+  color-scheme: dark;
+
+  /* ---- Capas de gris azulado: cuanto más arriba en la jerarquía, más clara ---- */
+  --capa-0: #0a0e15; /* fondo de la página (mismo valor que meta theme-color) */
+  --capa-1: #10151e; /* encabezado y paneles de sección */
+  --capa-2: #161c27; /* tarjetas */
+  --capa-3: #1e2531; /* elementos dentro de tarjetas: barras, campos, registro */
+  --capa-4: #283040; /* hover, elemento seleccionado */
+
+  --borde:       #2d3647;
+  --borde-suave: #232b3a;
+  --borde-control: #66728a; /* campos y botones: 3:1 o más contra su fondo (WCAG 2.2, 1.4.11) */
+
+  /* ---- Texto (nunca blanco puro) ---- */
+  --texto:   #dbe1ea; /* principal */
+  --texto-2: #a6b1c2; /* secundario */
+  --texto-3: #8f9bae; /* auxiliar (ejes, aclaraciones) */
+
+  /* ---- Estados del semáforo (desaturados). Siempre van con texto e ícono ---- */
+  --ok:       #7cc6a4;
+  --atencion: #deba74;
+  --alerta:   #e88f8c;
+  --neutro:   #8f9bae;
+
+  --ok-fondo:       rgba(124, 198, 164, 0.13);
+  --atencion-fondo: rgba(222, 186, 116, 0.13);
+  --alerta-fondo:   rgba(232, 143, 140, 0.14);
+  --neutro-fondo:   rgba(143, 155, 174, 0.12);
+
+  --ok-borde:       rgba(124, 198, 164, 0.38);
+  --atencion-borde: rgba(222, 186, 116, 0.38);
+  --alerta-borde:   rgba(232, 143, 140, 0.42);
+  --neutro-borde:   rgba(143, 155, 174, 0.32);
+
+  /* ---- Colores de datos (un poco desaturados) ---- */
+  --dato-temperatura: #e3a87d;
+  --dato-humedad:     #82b1de;
+  --dato-gases:       #bca4e6;
+  --dato-presencia:   #80c6cc;
+  --dato-llama:       #e89d7e;
+
+  /* ---- Foco de teclado y acento ---- */
+  --foco:   #9fc5f8;
+  --acento: #82b1de;
+
+  /* ---- Medidas y tipografía ---- */
+  --radio:   14px;
+  --radio-s: 8px;
+  --fuente: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono:   ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}

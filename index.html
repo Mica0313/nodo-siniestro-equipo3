@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Campus IoT · Documentación</title>
+<meta name="description" content="Carpeta del proyecto institucional de 6to año: Smart Campus IoT, sistema distribuido de monitoreo ambiental, energético y operativo para la escuela.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css?v=7">
+<script>
+  try { var t = localStorage.getItem("sc-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+</script>
+</head>
+<body>
+<a class="skip" href="#contenido">Saltar al contenido</a>
+
+<!-- Íconos (trazos estilo Lucide) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/></symbol>
+    <symbol id="i-desktop" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+    <symbol id="i-tablet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="i-reload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+    <symbol id="i-plug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 2v6M15 2v6M6 8h12v4a6 6 0 0 1-12 0zM12 18v4"/></symbol>
+    <symbol id="i-github" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.9a3.4 3.4 0 0 0-.9-2.6c3.1-.4 6.4-1.5 6.4-7a5.4 5.4 0 0 0-1.5-3.7 5 5 0 0 0-.1-3.8s-1.2-.3-3.9 1.5a13.4 13.4 0 0 0-7 0C6.3 1.7 5.1 2 5.1 2a5 5 0 0 0-.1 3.8A5.4 5.4 0 0 0 3.5 9.5c0 5.4 3.3 6.6 6.4 7a3.4 3.4 0 0 0-.9 2.6V22"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></symbol>
+    <symbol id="i-table" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 6 6 6-6 6"/></symbol>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" class="d-arrow"/></marker>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <button class="btn btn-icon menu-btn" id="menuBtn" aria-label="Abrir índice" aria-expanded="false" aria-controls="sidebar"><svg class="icon"><use href="#i-menu"/></svg></button>
+  <a class="brand" href="#inicio">
+    <span class="brand-mark" aria-hidden="true">SC</span>
+    <span class="brand-text"><strong data-bind="nombre">Smart Campus IoT</strong><span><span data-bind="equipo"></span><span class="hide-sm"> · <span data-bind="curso"></span></span></span></span>
+  </a>
+  <span class="spacer"></span>
+  <a class="btn btn-primary" href="#ver-proyecto" aria-label="Ver el proyecto"><svg class="icon"><use href="#i-eye"/></svg><span class="btn-label">Ver proyecto</span></a>
+  <button class="btn btn-icon" id="themeBtn" aria-label="Cambiar tema claro u oscuro"><svg class="icon"><use href="#i-moon"/></svg></button>
+</header>
+
+<div class="layout">
+  <nav class="sidebar" id="sidebar" aria-label="Índice de la documentación">
+    <label class="search">
+      <span class="sr-only">Buscar en el índice</span>
+      <svg aria-hidden="true"><use href="#i-search"/></svg>
+      <input type="search" id="navSearch" placeholder="Buscar en el índice…" autocomplete="off">
+    </label>
+    <div id="navList"></div>
+  </nav>
+  <div class="scrim" id="scrim"></div>
+
+  <main id="contenido" tabindex="-1">
+
+<!-- ================================================================ PORTADA -->
+<section class="page" id="inicio" data-group="Inicio" data-title="Portada" data-num="">
+  <div class="hero">
+    <p class="eyebrow">Carpeta del proyecto · Proyecto institucional 6to año <span data-bind="ciclo"></span></p>
+    <h1 data-bind="nombre">Smart Campus IoT</h1>
+    <p class="lead" data-bind="bajada"></p>
+    <div class="flow" aria-label="Flujo de datos del sistema">
+      <span>Sensores</span><i>→</i><span>ESP32</span><i>→</i><span>WiFi</span><i>→</i><span>Broker MQTT</span><i>→</i><span>Backend / BD</span><i>→</i><span>Dashboard</span>
+    </div>
+    <div class="meta">
+      <div><b>Equipo</b><span data-bind="equipo"></span></div>
+      <div><b>Integrantes</b><span data-bind="apellidos"></span></div>
+      <div><b>Curso</b><span data-bind="curso"></span></div>
+      <div><b>Nodo asignado</b><span data-bind="nodoNombre"></span></div>
+      <div><b>Institución</b><span data-bind="institucion"></span></div>
+      <div><b>Estado del proyecto</b><span id="estadoPublicacion"></span></div>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="#ver-proyecto"><svg class="icon"><use href="#i-eye"/></svg>Ver el proyecto</a>
+      <a class="btn" href="#gantt">Carta Gantt</a>
+      <a class="btn" href="#plano">Plano de diseño</a>
+      <a class="btn" href="#equipo">Equipo</a>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong><svg class="icon"><use href="#i-info"/></svg>Sobre este documento</strong>
+    <p>Esta es la <b>carpeta del proyecto</b>: reúne la planificación, el diseño técnico y el seguimiento del trabajo durante el año. Sigue los apartados de la <em>Documentación sugerida</em> de la propuesta ejecutiva del Proyecto Institucional 6to año 2026. Le suma dos análisis transversales: <b>Investigación Operativa</b> y <b>Seguridad Informática</b>.</p>
+  </div>
+
+  <h2>Recorrido sugerido</h2>
+  <div class="grid quick">
+    <a class="card" href="#objetivo"><h3>1 · Presentación</h3><p>Objetivo, problema, alcances, equipo y asignaturas.</p></a>
+    <a class="card" href="#scrum"><h3>2 · Planificación</h3><p>Scrum, sprints, carta Gantt y entregables.</p></a>
+    <a class="card" href="#arquitectura"><h3>3 · Diseño técnico</h3><p>Arquitectura, plano, componentes, firmware, servidor y dashboard.</p></a>
+    <a class="card" href="#presupuesto"><h3>4 · Seguimiento</h3><p>Presupuesto, bitácora de pruebas y resultados.</p></a>
+    <a class="card quick-guia" href="#guia"><h3>Guía de uso</h3><p>Cómo editar, completar y publicar esta documentación.</p></a>
+  </div>
+</section>
+
+<!-- ================================================================ VER PROYECTO -->
+<section class="page" id="ver-proyecto" data-group="Inicio" data-title="Ver el proyecto" data-num="">
+  <p class="eyebrow">Proyecto en vivo</p>
+  <h1>Ver el proyecto</h1>
+  <p class="lead">Vista previa del dashboard del equipo. Pueden probar cómo se ve en una computadora, una tablet o un celular.</p>
+
+  <div class="viewer" id="viewer">
+    <div class="viewer-bar">
+      <form class="viewer-url" id="viewerForm">
+        <label class="sr-only" for="viewerInput">Dirección del proyecto</label>
+        <input id="viewerInput" type="url" placeholder="https://usuario.github.io/smart-campus/" inputmode="url">
+        <button class="btn" type="submit">Cargar</button>
+      </form>
+      <div class="seg" role="group" aria-label="Tamaño de pantalla">
+        <button type="button" data-w="100%" aria-pressed="true" aria-label="Escritorio"><svg class="icon"><use href="#i-desktop"/></svg></button>
+        <button type="button" data-w="768px" aria-pressed="false" aria-label="Tablet (768 px)"><svg class="icon"><use href="#i-tablet"/></svg></button>
+        <button type="button" data-w="375px" aria-pressed="false" aria-label="Celular (375 px)"><svg class="icon"><use href="#i-phone"/></svg></button>
+      </div>
+      <button class="btn btn-icon" type="button" id="viewerReload" aria-label="Recargar vista previa"><svg class="icon"><use href="#i-reload"/></svg></button>
+      <a class="btn btn-icon" id="viewerOpen" href="#" target="_blank" rel="noopener" aria-label="Abrir en una pestaña nueva"><svg class="icon"><use href="#i-ext"/></svg></a>
+    </div>
+    <div class="viewer-stage" id="viewerStage">
+      <div class="viewer-empty" id="viewerEmpty">
+        <svg class="big" aria-hidden="true"><use href="#i-desktop"/></svg>
+        <h3>El proyecto todavía no está publicado</h3>
+        <p>Cuando el dashboard tenga una dirección pública, cárguenla en <code>previewUrl</code> dentro de <code>assets/js/datos.js</code> y se va a ver acá.</p>
+        <p>Mientras tanto pueden escribir una dirección arriba para probar el visor (solo queda guardada en este navegador).</p>
+        <p><a href="#guia">¿Cómo publico el proyecto?</a></p>
+      </div>
+      <iframe class="viewer-frame" id="viewerFrame" title="Vista previa del proyecto" hidden loading="lazy" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </div>
+
+
+  <h2>Accesos</h2>
+  <div class="grid-2">
+    <div class="card"><h3 style="margin-top:0">Dashboard publicado</h3><p id="accesoPreview"></p></div>
+    <div class="card"><h3 style="margin-top:0">Repositorio del código</h3><p id="accesoRepo"></p></div>
+  </div>
+</section>
+
+<!-- ================================================================ 1 CONTROL DE CAMBIOS -->
+<section class="page" id="cambios" data-group="1 · Presentación" data-title="Control de cambios" data-num="1">
+  <p class="eyebrow">Primera sección</p>
+  <h1>1. Control de cambios</h1>
+  <p class="lead">Registro de las modificaciones de la documentación y del alcance del proyecto. Cada vez que el equipo, el Product Owner o el auditor aprueban un cambio, se agrega una fila nueva.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>cambio</th><th>Fecha</th><th>Responsable</th><th>Detalle del cambio</th></tr></thead>
+    <tbody id="tablaCambios"></tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================ 2 OBJETIVO -->
+<section class="page" id="objetivo" data-group="1 · Presentación" data-title="Objetivo y visión general" data-num="2">
+  <p class="eyebrow">Primera sección</p>
+  <h1>2. Objetivo y visión general</h1>
+  <h2>Objetivo</h2>
+  <p>Diseñar, construir e implementar un sistema tecnológico integral basado en <b>ESP32</b>, capaz de relevar variables del entorno escolar en tiempo real, procesarlas, almacenarlas y visualizarlas en un tablero central.</p>
+  <p>El equipo trabaja como un equipo profesional de ingeniería: desarrolla un producto <b>real, escalable y demostrable</b>, presentado como una plataforma institucional con módulos reales.</p>
+
+  <h2>Objetivo del nodo Siniestro</h2>
+  <p>Diseñar, construir y poner en funcionamiento un nodo IoT basado en el <b>ESP32-C3 Mini</b> que detecte de manera temprana situaciones de riesgo (humo, llama, gases combustibles, movimientos bruscos y cambios de temperatura) en el Lab. de Informática 3, las muestre en su propio display y las envíe por MQTT al Dashboard general, para que la escuela pueda actuar a tiempo.</p>
+  <p>Para lograrlo, el equipo se propone:</p>
+  <ul>
+    <li>Medir temperatura, humedad, gas y humo, llama y movimiento con cuatro sensores: DHT22, MQ-2, sensor de llama IR y MPU6050.</li>
+    <li>Definir y ajustar los umbrales de alerta a partir de mediciones propias.</li>
+    <li>Publicar los datos por MQTT y verlos en el dashboard, con semáforo y alertas.</li>
+    <li>Montar el nodo de forma prolija y segura en una caja estanca.</li>
+    <li>Documentar el proceso, las pruebas y los costos.</li>
+  </ul>
+
+  <h2>Visión general</h2>
+  <p>Se monta una red de <b>nodos inteligentes</b> distribuidos en distintos sectores de la escuela. Cada nodo, construido con un ESP32 y sensores, mide el ambiente, muestra los valores en su display LCD y envía los datos por WiFi a un <b>servidor central</b>. El servidor recibe, procesa y guarda los datos, y los publica en un <b>dashboard web</b> que se puede ver desde una PC, una notebook o una pantalla institucional.</p>
+
+  <h3>Variables que puede monitorear el sistema</h3>
+  <div class="grid">
+    <div class="card"><b>Ambiente</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14.5px">Temperatura, humedad, luminosidad, calidad de aire (CO).</p></div>
+    <div class="card"><b>Uso de los espacios</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14.5px">Presencia, nivel sonoro (dB), estado de un aula o laboratorio.</p></div>
+    <div class="card"><b>Exterior y energía</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14.5px">Humedad de suelo de la huerta, consumo eléctrico básico.</p></div>
+    <div class="card"><b>Infraestructura</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14.5px">Estado de la red de datos (latencia y señal WiFi).</p></div>
+    <div class="card"><b>Seguridad y siniestros (nodo Siniestro)</b><p style="margin:4px 0 0;color:var(--text-2);font-size:14.5px">Humo y gases combustibles (MQ-2), llama (sensor IR), movimiento brusco o golpe (MPU6050), y temperatura y humedad (DHT22).</p></div>
+  </div>
+
+  <h3>Módulos del sistema</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Módulo</th><th>Qué mide o muestra</th></tr></thead>
+    <tbody>
+      <tr><td>1 · Monitoreo ambiental de aulas</td><td>Temperatura, humedad, luz, presencia</td></tr>
+      <tr><td>2 · Monitoreo de laboratorio</td><td>Temperatura, humedad, ruido, estado del espacio</td></tr>
+      <tr><td>3 · Exterior / huerta</td><td>Temperatura exterior, humedad de suelo, luz ambiente</td></tr>
+      <tr><td>4 · Tablero central institucional</td><td>Dashboard general, ranking por estado, semáforo por sectores, histórico</td></tr>
+      <tr><td>5 · Alertas</td><td>Alta temperatura, humedad fuera de rango, nodo desconectado, y alertas de gas o humo, llama y movimiento brusco del nodo Siniestro</td></tr>
+      <tr><td>6 · Detección de siniestros (nodo Siniestro)</td><td>Humo y gas, llama, movimiento brusco, temperatura y humedad</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================ 3 PROBLEMA -->
+<section class="page" id="problema" data-group="1 · Presentación" data-title="Problema a resolver" data-num="3">
+  <p class="eyebrow">Primera sección</p>
+  <h1>3. Problema a resolver</h1>
+  <p class="lead">La escuela no tiene un sistema centralizado para observar las variables importantes de sus espacios. Hoy se decide "a ojo".</p>
+  <h2>Lo que hoy no se sabe</h2>
+  <ul>
+    <li>Qué aulas tienen peor ventilación.</li>
+    <li>Qué laboratorio tiene mayor temperatura.</li>
+    <li>Qué sectores quedan encendidos o activos fuera de horario.</li>
+    <li>Qué condiciones ambientales afectan el trabajo o el aprendizaje.</li>
+    <li>Cómo tomar decisiones con datos reales.</li>
+  </ul>
+  <h2>Qué aporta la solución</h2>
+  <p>El proyecto transforma esos <b>datos invisibles</b> en <b>información útil y visible</b>, tal como lo hace un sistema BMS (<i>Building Management System</i>) profesional en un edificio real.</p>
+  <div class="callout">
+    <strong><svg class="icon"><use href="#i-info"/></svg>Meta final</strong>
+    <p>Demostrar que la escuela puede tomar decisiones a partir de datos reales.</p>
+  </div>
+  <h2>Problema que resuelve el nodo Siniestro</h2>
+  <p>El nodo Siniestro es un dispositivo de monitoreo y seguridad que busca <b>detectar de manera temprana situaciones de riesgo</b> en el sector donde se instala, el Lab. de Informática 3: incendios, humo, fugas de gas, aumentos peligrosos de temperatura o movimientos bruscos. Las informa a la estación principal para que se pueda actuar a tiempo.</p>
+  <p>Es un <b>nodo de detección temprana experimental</b>: un prototipo con fines educativos que no representa un sistema contra incendios certificado y no reemplaza a los sistemas de seguridad oficiales de la institución.</p>
+  <p>Para reducir las falsas alarmas, el diseño busca combinar la información de varios sensores (humo, llama y temperatura) en lugar de depender de uno solo. En esta etapa cada sensor se evalúa por separado y el nodo envía todas las mediciones, de modo que el cruce de datos puede hacerse en la estación principal o sumarse al nodo como mejora.</p>
+  <h3>Qué se observa hoy en el Lab. de Informática 3</h3>
+  <p>Hoy el laboratorio no tiene un aviso a distancia: si aparece humo, una pérdida de gas, fuego o un golpe fuerte sobre un equipo, la única forma de enterarse es que haya alguien presente que lo vea, lo huela o lo escuche. Fuera del horario de clases, o con el laboratorio vacío, el problema puede avanzar sin que nadie lo note. Además, un laboratorio de informática concentra muchos equipos eléctricos conectados al mismo tiempo, por lo que el riesgo principal es un principio de incendio de origen eléctrico más que una fuga de gas.</p>
+  <h3>Qué decisión puede tomar la escuela con los datos del nodo</h3>
+  <ul>
+    <li><b>Actuar a tiempo.</b> Si el dashboard marca una alerta de humo, llama o gas, avisar a una persona responsable para que vaya a verificar el sector, ventile, corte la energía si hace falta y, si se confirma el peligro, evacúe y llame a emergencias.</li>
+    <li><b>Distinguir una falsa alarma de una emergencia real.</b> Mirar qué sensores se activaron juntos: humo, llama y aumento de temperatura al mismo tiempo es mucho más grave que un valor aislado.</li>
+    <li><b>Revisar con datos.</b> El histórico de 24 horas permite ver si hay horarios o momentos donde suben el humo o la temperatura, y decidir una revisión de la instalación eléctrica o de los equipos del laboratorio.</li>
+    <li><b>Decidir si conviene ampliar.</b> Si el nodo funciona bien, la escuela puede evaluar sumar nodos parecidos en otros sectores.</li>
+  </ul>
+  
+</section>
+
+<!-- ================================================================ 4 ALCANCES -->
+<section class="page" id="alcances" data-group="1 · Presentación" data-title="Alcances" data-num="4">
+  <p class="eyebrow">Primera sección</p>
+  <h1>4. Alcances</h1>
+  <p class="lead">Esta carpeta documenta el <b>nodo Siniestro</b>, así que los alcances que siguen son los del nodo. El broker MQTT y el Dashboard general son parte de la plataforma compartida del proyecto institucional: el nodo se conecta a ellos, pero no los construye.</p>
+
+  <h2>Niveles de complejidad</h2>
+  <div class="grid-2">
+    <div class="card area-card a-desarrollo">
+      <span class="tag a-desarrollo">Nivel 1 · obligatorio</span>
+      <h3>Todos los equipos</h3>
+      <ul><li>ESP32 conectado</li><li>Lectura de al menos 2 variables</li><li>Envío por MQTT</li><li>Visualización en el dashboard</li></ul>
+    </div>
+    <div class="card area-card a-aplicaciones">
+      <span class="tag a-aplicaciones">Nivel 2 · ampliación</span>
+      <h3>Equipos que avanzan más</h3>
+      <ul><li>Gabinete definitivo</li><li>Actualización OTA (<i>Over-The-Air</i>)</li><li>Histórico avanzado y alertas</li><li>Módulo exterior o de consumo energético</li><li>Análisis estadístico</li></ul>
+    </div>
+  </div>
+
+  <h2>Alcance del nodo Siniestro</h2>
+  <div class="grid-2">
+    <div class="card"><h3 style="margin-top:0">Qué incluye el nodo</h3><ul class="checklist">
+      <li>Microcontrolador ESP32-C3 Mini con antena agregada</li>
+      <li>Cuatro sensores: MQ-2 (gas y humo), sensor de llama IR, acelerómetro MPU6050 y DHT22 (temperatura y humedad)</li>
+      <li>Display LCD 16x2 con un pulsador para cambiar de página</li>
+      <li>Envío por MQTT cada 2 segundos, o de inmediato cuando cambia una alarma</li>
+      <li>Página web propia del nodo, con los datos en formato JSON (ruta /data)</li>
+      <li>Caja estanca de 115 x 115 x 100 mm</li>
+    </ul></div>
+    <div class="card"><h3 style="margin-top:0">Qué no incluye</h3><ul>
+      <li>Certificación como sistema contra incendios</li>
+      <li>Reemplazo de los sistemas de seguridad oficiales de la institución</li>
+      <li>Cruce automático de sensores dentro del nodo (hoy se evalúa cada sensor por separado)</li>
+      <li>Umbral de alerta de temperatura (el nodo mide y envía el valor, pero no define alerta)</li>
+      <li>Servidor Linux, broker MQTT ni base de datos propios (se usan los de la plataforma general; el dashboard del nodo guarda las últimas 24 h en el navegador de quien lo abre)</li>
+      <li>Actuar sobre el entorno: el nodo solo detecta y avisa, no corta gas ni energía</li>
+    </ul></div>
+  </div>
+</section>
+
+<!-- ================================================================ 5 EQUIPO -->
+<section class="page" id="equipo" data-group="1 · Presentación" data-title="Equipo e integrantes" data-num="5">
+  <p class="eyebrow">Primera sección</p>
+  <h1>5. Equipo e integrantes</h1>
+  <p class="lead"><span data-bind="equipo"></span> · <span data-bind="curso"></span> · Nodo asignado: <b data-bind="nodoNombre"></b></p>
+
+  <h2>Integrantes</h2>
+  <div class="grid" id="listaIntegrantes"></div>
+
+  <h2>Roles dentro del equipo</h2>
+  <div class="grid-2" id="listaRoles"></div>
+
+  <h2>Organización y reportes</h2>
+  <figure class="diagram fit">
+    <svg viewBox="0 0 640 230" role="img" aria-labelledby="orgT">
+      <title id="orgT">Organigrama: el Project Manager reporta al auditor y coordina a Desarrollo, Aplicaciones e Infraestructura</title>
+      <rect class="d-box" x="230" y="10" width="180" height="44" rx="8"/><text class="d-title" x="320" y="30" text-anchor="middle">Auditor de proyectos</text><text class="d-small" x="320" y="46" text-anchor="middle">docente · Product Owner</text>
+      <rect class="d-accent" x="230" y="88" width="180" height="44" rx="8"/><text class="d-title" x="320" y="108" text-anchor="middle">Project Manager</text><text class="d-small" x="320" y="124" text-anchor="middle">Scrum Master</text>
+      <path class="d-line" d="M320 88 V54" marker-end="url(#arrow)"/><text class="d-small" x="330" y="76">reporta</text>
+      <path class="d-line" d="M320 132 V156 M100 156 H540 M100 156 V172 M320 156 V172 M540 156 V172"/>
+      <rect class="d-box" x="20" y="172" width="160" height="44" rx="8"/><text class="d-title" x="100" y="192" text-anchor="middle">Desarrollo</text><text class="d-small" x="100" y="208" text-anchor="middle">firmware ESP32</text>
+      <rect class="d-box" x="240" y="172" width="160" height="44" rx="8"/><text class="d-title" x="320" y="192" text-anchor="middle">Aplicaciones</text><text class="d-small" x="320" y="208" text-anchor="middle">dashboard</text>
+      <rect class="d-box" x="460" y="172" width="160" height="44" rx="8"/><text class="d-title" x="540" y="192" text-anchor="middle">Infraestructura</text><text class="d-small" x="540" y="208" text-anchor="middle">servidor · red · nodo</text>
+    </svg>
+    <figcaption>El Project Manager reporta los avances al auditor de los proyectos. El equipo de desarrollo (Desarrollo, Aplicaciones e Infraestructura) se organiza de manera autónoma.</figcaption>
+  </figure>
+
+  <p><b>Project Manager:</b> Torrecilla · <b>2.º Project Manager:</b> De Donato · <b>3.er Project Manager:</b> Torres. <b>Ayudantes:</b> Torrecilla colabora con Desarrollo (De Donato) y Florentino con Aplicaciones (Pittis).</p>
+
+  <h2>Docentes</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Asignatura</th><th>Docente</th></tr></thead>
+    <tbody id="tablaDocentes"></tbody>
+  </table></div>
+  <p><b>Auditor de los proyectos: Pedaci Lourdes</b> </p>
+
+</section>
+
+<!-- ================================================================ 6 ASIGNATURAS -->
+<section class="page" id="asignaturas" data-group="1 · Presentación" data-title="Asignaturas involucradas" data-num="6">
+  <p class="eyebrow">Primera sección</p>
+  <h1>6. Asignaturas involucradas</h1>
+  <p class="lead">El proyecto es interdisciplinario: cada asignatura aporta una parte del mismo producto. En la defensa final cada parte se explica por separado, pero todo funciona conectado.</p>
+  <div class="grid-2">
+    <div class="card area-card a-hardware">
+      <span class="tag a-hardware">Laboratorio de Hardware</span>
+      <h3>Diseño y construcción física del nodo</h3>
+      <ul><li>Selección de sensores y lectura de datasheets</li><li>Diseño del circuito, protoboard y versión definitiva</li><li>Soldado, montaje, gabinete y alimentación</li></ul>
+      <p><b>Productos:</b> prototipo físico, esquema eléctrico, lista de materiales, instructivo de armado.</p>
+    </div>
+    <div class="card area-card a-so">
+      <span class="tag a-so">Laboratorio de Sistemas Operativos</span>
+      <h3>Plataforma central</h3>
+      <ul><li>Servidor Linux, red, usuarios y acceso remoto</li><li>Docker o servicios nativos: broker MQTT, base de datos, servicio web</li><li>Monitoreo, backup y restauración</li></ul>
+      <p><b>Productos:</b> servidor documentado, diagrama de servicios, manual de instalación, procedimiento de recuperación.</p>
+    </div>
+    <div class="card area-card a-aplicaciones">
+      <span class="tag a-aplicaciones">Laboratorio de Aplicaciones</span>
+      <h3>Interfaz y visualización de datos</h3>
+      <ul><li>Diseño del dashboard y experiencia de usuario</li><li>Tiempo real, gráficos históricos, tarjetas por sector</li><li>Alarmas visuales e identidad visual del proyecto</li></ul>
+      <p><b>Productos:</b> dashboard navegable, maqueta UX/UI, vista responsive, panel de alertas.</p>
+    </div>
+    <div class="card area-card a-desarrollo">
+      <span class="tag a-desarrollo">Desarrollo de Software</span>
+      <h3>Firmware y lógica del nodo</h3>
+      <ul><li>Programación del ESP32 y lectura de sensores</li><li>Publicación MQTT, reconexión automática, validación de datos</li><li>Manejo de errores y OTA opcional</li></ul>
+      <p><b>Productos:</b> firmware modular, librerías reutilizables, documento de tópicos MQTT.</p>
+    </div>
+    <div class="card area-card a-io">
+      <span class="tag a-io">Investigación Operativa</span>
+      <h3>Decisiones con modelos</h3>
+      <ul><li>Red PERT/CPM y camino crítico del proyecto</li><li>Matriz de decisión para elegir sensores</li><li>Optimización del presupuesto y la ubicación de nodos</li></ul>
+      <p><b>Productos:</b> red del proyecto con holguras, matriz de decisión justificada, modelo de optimización.</p>
+    </div>
+    <div class="card area-card a-seginfo">
+      <span class="tag a-seginfo">Seguridad Informática</span>
+      <h3>Proteger el sistema y los datos</h3>
+      <ul><li>Inventario de activos y matriz de riesgos</li><li>Seguridad física del nodo y seguridad lógica del servidor</li><li>Protección del broker, credenciales y marco legal</li></ul>
+      <p><b>Productos:</b> matriz de riesgos, plan de controles, checklist de hardening, informe de auditoría.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ 7 SCRUM -->
+<section class="page" id="scrum" data-group="2 · Planificación" data-title="Planificación y Scrum" data-num="7">
+  <p class="eyebrow">Segunda sección</p>
+  <h1>7. Planificación y metodología Scrum</h1>
+  <p class="lead">Planificar es pensar antes de actuar: definir qué se quiere lograr, qué recursos hacen falta, qué pasos seguir, en qué orden, y cómo controlar si el trabajo avanza bien.</p>
+  <p>Una buena planificación hace que el proyecto no dependa de la improvisación: el equipo analiza la necesidad, define objetivos, reparte tareas, elige materiales y herramientas, estima tiempos, prevé problemas y establece criterios para evaluar el resultado.</p>
+
+  <h2>Scrum en el proyecto</h2>
+  <p><b>Scrum</b> es un marco de trabajo ágil que organiza el trabajo en ciclos cortos llamados <b>sprints</b>. En cada sprint el equipo planifica, desarrolla, revisa y mejora para entregar valor de forma rápida y controlada.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Rol Scrum</th><th>Quién lo cumple</th><th>Qué hace</th></tr></thead>
+    <tbody>
+      <tr><td><b>Product Owner</b></td><td>Auditor de los proyectos (docente)</td><td>Representa la visión de la escuela como cliente. Define el objetivo del sprint y acepta o rechaza los entregables.</td></tr>
+      <tr><td><b>Scrum Master</b></td><td>Project Manager del equipo</td><td>Cuida que el equipo siga las prácticas acordadas, elimina obstáculos y reporta al auditor.</td></tr>
+      <tr><td><b>Equipo de desarrollo</b></td><td>Desarrollo, Aplicaciones, Infraestructura</td><td>Construye el producto y se organiza de forma autónoma para cumplir la meta del sprint.</td></tr>
+    </tbody>
+  </table></div>
+
+  <h2>Ciclo de un sprint</h2>
+  <div class="grid">
+    <div class="card"><span class="tag a-pm">1 · Planificación</span><p style="color:var(--text-2);font-size:14.5px">¿Qué vamos a entregar y cómo lo vamos a hacer? Se fija una meta clara.</p></div>
+    <div class="card"><span class="tag a-desarrollo">2 · Desarrollo</span><p style="color:var(--text-2);font-size:14.5px">No se hacen cambios que pongan en riesgo la meta. Se mantienen los estándares de calidad.</p></div>
+    <div class="card"><span class="tag a-aplicaciones">3 · Revisión</span><p style="color:var(--text-2);font-size:14.5px">Se muestra lo hecho al Product Owner, que da feedback y acepta o no el entregable.</p></div>
+    <div class="card"><span class="tag a-io">4 · Retrospectiva</span><p style="color:var(--text-2);font-size:14.5px">El equipo analiza cómo trabajó, qué problemas hubo y qué mejora en el próximo ciclo.</p></div>
+  </div>
+  <p>Un sprint dura entre 1 y 4 semanas y nunca más de un mes. En este proyecto se usan sprints de <b><span data-bind="semanasPorSprint"></span> semanas</b> (se ven en la <a href="#gantt">carta Gantt</a>).</p>
+   <h2>Registro de sprints</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Sprint</th><th>Meta</th><th>Entregado</th><th>Retrospectiva</th></tr></thead>
+    <tbody><tr><td><b>S5 y S6</b><br><small>25/05 al 05/07</small></td><td><p style='margin:0 0 6px'>Conseguir los materiales y organizar el trabajo.</p></td><td><ul style='margin:0;padding-left:18px'><li>Precios de cada componente buscados en Mercado Libre y compra acordada entre los integrantes.</li><li>Primera compra (16 y 17/06) por <b>$ 33.595</b>: un integrante compró y el resto aportó el dinero.</li><li>Roles definidos de manera presencial y virtual, según las habilidades de cada integrante.</li><li>Dos clases del profesor Barral sobre el funcionamiento del ESP32-C3 Mini.</li></ul></td><td><p style='margin:0 0 6px'>Sin complicaciones registradas.</p><p style='margin:0 0 6px'><b>Salió bien:</b> la compra se organizó entre todos y los roles se repartieron según las habilidades de cada uno.</p></td></tr><tr><td><b>S7 y S8</b><br><small>06/07 al 16/08</small></td><td><p style='margin:0 0 6px'>Probar el ESP32-C3 Mini con el DHT22 y el display, y definir el nodo.</p></td><td><p style='margin:0 0 6px'>Hubo receso invernal del 20 al 31/07.</p><ul style='margin:0;padding-left:18px'><li>Práctica I verificada: el ESP32-C3 Mini muestra en el display lo que mide el DHT22. El código se armó con ayuda de una herramienta de IA y se ejecutó en Arduino IDE.</li><li>Nodo Siniestro asignado el 14/07 y reconfirmado el 13/08.</li><li>Búsqueda de los sensores específicos del nodo, consultando con los profesores.</li></ul></td><td><p style='margin:0 0 6px'><b>Complicaciones:</b></p><ul style='margin:0;padding-left:18px'><li>Los pines del primer ESP quedaron soldados al revés y se consiguió otro.</li><li>Confusión con los pines SDA y SCL: el pizarrón decía una cosa y la foto de Teams otra, y el orden cambia según el ESP.</li><li>El archivo de Teams con los nodos no coincidía con lo definido en clase, y la asignación recién se confirmó el 13/08.</li></ul><p style='margin:8px 0 6px'><b>Retrospectiva:</b></p><p style='margin:0 0 6px'><b>Salió bien:</b> la práctica con el DHT22 funcionó aun con el ESP de pines invertidos.</p><p style='margin:0 0 6px'><b>Para mejorar:</b> confirmar los pines según el modelo de ESP y dejar escrito, en un solo lugar, lo que se define en clase.</p></td></tr><tr><td><b>S9</b><br><small>17/08 al 06/09</small></td><td><p style='margin:0 0 6px'>Comprar los sensores y probar cada uno por separado.</p></td><td><ul style='margin:0;padding-left:18px'><li>Segunda compra junto con otro equipo, para compartir el envío: <b>$ 48.540</b>.</li><li>MAC de los dos ESP publicadas en Teams para que el profesor las habilite en el Dashboard.</li><li>Primer diseño y estructura de la página web del nodo (HTML, CSS y JavaScript).</li><li>Nuevo ESP y acelerómetro con los pines soldados.</li><li>MQ-2, MPU6050 y sensor de llama probados uno por uno.</li></ul></td><td><p style='margin:0 0 6px'><b>Complicaciones:</b></p><ul style='margin:0;padding-left:18px'><li>Errores de sensor por pines mal asignados en el código, que se corrigieron.</li></ul><p style='margin:8px 0 6px'><b>Retrospectiva:</b></p><p style='margin:0 0 6px'><b>Salió bien:</b> comprar junto con otro equipo bajó el costo del envío, y probar cada sensor por separado permitió corregir los errores de pines antes de juntarlos.</p><p style='margin:0 0 6px'><b>Para mejorar:</b> la página web quedó al 70 %.</p></td></tr><tr><td><b>S10</b><br><small>07/09 al 27/09</small></td><td><p style='margin:0 0 6px'>Probar todos los sensores juntos en la protoboard.</p></td><td><ul style='margin:0;padding-left:18px'><li>Todos los sensores funcionando juntos en la protoboard y registrando los datos correctamente.</li></ul></td><td><p style='margin:0 0 6px'><b>Complicaciones:</b></p><ul style='margin:0;padding-left:18px'><li>Viaje del curso a Bariloche (del 05 al 17/09): varios integrantes estuvieron ausentes durante casi todo el sprint.</li></ul><p style='margin:8px 0 6px'><b>Retrospectiva:</b></p><p style='margin:0 0 6px'><b>Salió bien:</b> cuando alguien faltó, otro compañero cubrió su tarea. De Donato estuvo ausente y el código lo armó Torres.</p><p style='margin:0 0 6px'><b>Para mejorar:</b> planificar los sprints considerando de antemano las fechas en que faltan integrantes.</p></td></tr><tr><td><b>S11</b><br><small>28/09 al 18/10</small></td><td><p style='margin:0 0 6px'>Preparar la caja y la placa, y mejorar la señal WiFi.</p></td><td><ul style='margin:0;padding-left:18px'><li>Caja estanca perforada: ubicación de cada componente dibujada según los borradores de los planos.</li><li>Pines hembra comprados y antena soldada al nuevo ESP.</li><li>Soldadura de la placa experimental iniciada.</li><li>Borrador de los planos.</li></ul></td><td><p style='margin:0 0 6px'><b>Complicaciones:</b></p><ul style='margin:0;padding-left:18px'><li>Los profesores notaron que la señal WiFi del ESP era muy baja.</li></ul><p style='margin:8px 0 6px'><b>Retrospectiva:</b></p><p style='margin:0 0 6px'><b>Salió bien:</b> la caja se perforó después de planificar el lugar de cada componente.</p><p style='margin:0 0 6px'><b>Para mejorar:</b> los planos formales quedaron al 50 %.</p></td></tr><tr><td><b>S12</b><br><small>19/10 al 08/11</small></td><td><p style='margin:0 0 6px'>Enviar datos al Dashboard y armar el nodo.</p></td><td><ul style='margin:0;padding-left:18px'><li><b>23/10:</b> primera prueba exitosa de envío al Dashboard (Pittis y Torrecilla), después de mejorar la señal.</li><li><b>03 y 04/11:</b> regulador LM7805 soldado a la placa y verificado con multímetro.</li><li>Umbrales de gas, llama y movimiento definidos con mediciones propias.</li><li><b>03/11:</b> dashboard del nodo rediseñado siguiendo la orientación de la profesora Pedaci.</li><li><b>05/11:</b> sensores pasados de la protoboard a la placa experimental.</li><li><b>06/11:</b> el ESP se conecta desde la placa y todos los datos llegan, incluido el acelerómetro.</li><li>Opciones de póster generadas con IA.</li></ul></td><td><p style='margin:0 0 6px'><b>Complicaciones:</b></p><ul style='margin:0;padding-left:18px'><li>El módulo step-down se quemó: su salida de 5 V entregaba 12 V. Le pasó a muchos equipos y se reemplazó por un LM7805.</li><li>29/10: la computadora no detectaba el puerto del nuevo ESP por un resto de estaño de la antena. Al sacarlo se quemaron unas resistencias, pero el ESP siguió funcionando.</li><li>30/10: el acelerómetro no llegaba al Dashboard. Faltaba agregar su tópico del lado del Dashboard.</li><li>05/11: el ESP tardaba muchísimo en conectarse al WiFi desde la placa, aunque afuera se conectaba rápido. Resoldar las conexiones con el cobre cubierto no alcanzó.</li><li>Causa real: a la potencia por defecto (19,5 dBm) el regulador no soporta el pico de corriente y el voltaje cae. Con 8,5 dBm se resolvió.</li><li>Batería: al conectar el nodo solo a la batería, el display titila y tiene bajo brillo (sin resolver).</li></ul><p style='margin:8px 0 6px'><b>Retrospectiva:</b></p><p style='margin:0 0 6px'><b>Salió bien:</b> medir con multímetro permitió detectar el módulo quemado, y consultar a los profesores y a otros equipos ayudó a resolver el WiFi (Martini, Barral y Werner). El equipo no se frenó ante las fallas.</p><p style='margin:0 0 6px'><b>Para mejorar:</b> primero se buscó la causa del WiFi en las soldaduras y en la protoboard. Cuando un módulo funciona afuera de la placa pero no adentro, conviene revisar también la alimentación mientras transmite.</p></td></tr><tr><td><b>S13</b><br><small>09/11 al 29/11</small></td><td><p style='margin:0 0 6px'>Armar el nodo, ensayar y exponer.</p></td><td><p style='margin:0 0 6px'>Ya terminado</p></td><td><p style='margin:0 0 6px'><b>Complicaciones:</b></p><ul style='margin:0;padding-left:18px'><li>Problema de la batería sin resolver (el display titila).</li><li>Pendiente definir en qué aula y en qué parte se ubica el nodo.</li></ul><p style='margin:8px 0 6px'><b>Retrospectiva:</b></p><p style='margin:0 0 6px'>Salió bien, realizamos la prueba el 13/11 y todo en orden. El problema de la alimentacion se resolvio.</p></td></tr></tbody>
+  </table></div>
+  <div class="callout todo">
+    <strong><svg class="icon"><use href="#i-edit"/></svg>ACLARACION</strong>
+    <p>El registro de sprints se reconstruyó a partir de la carta Gantt y la bitácora, porque el equipo no llevó un registro formal por sprint, y es el mismo que el documento Word «Registro de sprints» (que además detalla las tareas de cada sprint). Los números siguen los sprints de 3 semanas de la carta Gantt de referencia. Faltan las capturas o fotos de evidencia de cada prueba y la prueba completa del nodo armado en la caja.</p>
+  </div>
+ 
+</section>
+
+<!-- ================================================================ 8 GANTT -->
+<section class="page" id="gantt" data-group="2 · Planificación" data-title="Carta Gantt" data-num="8">
+  <p class="eyebrow">Segunda sección</p>
+  <h1>8. Carta Gantt</h1>
+  <p class="lead">Cronograma anual de marzo a noviembre: seis etapas, tareas por área, sprints, hitos de entrega y la fecha de hoy.</p>
+
+  <h2>8.1 Gantt del equipo</h2>
+  <p>Carta Gantt real del Equipo 3 para el nodo Siniestro, actualizada el 05/11. Cada tarea muestra quién la hizo, sus fechas y su porcentaje de avance; el botón <b>Ver</b> despliega lo que se anotó en la bitácora.</p>
+  <p id="ganttEquipoResumen" class="lead" style="font-size:15px"></p>
+  <div class="table-wrap"><table class="gantt-equipo">
+    <thead><tr><th>ID</th><th>Tarea</th><th>Responsables</th><th>Inicio</th><th>Fin</th><th>Avance</th><th>Detalle</th></tr></thead>
+    <tbody id="tablaGanttEquipo"></tbody>
+  </table></div>
+  <p id="ganttEquipoNotas" style="font-size:13.5px;color:var(--text-2)"></p>
+  <div class="sheet" id="sheet">
+    <div class="sheet-bar">
+      <span class="status off" id="sheetEstado">Sin planilla</span>
+      <span class="spacer"></span>
+      <a class="btn" id="sheetOpen" target="_blank" rel="noopener" hidden><svg class="icon"><use href="#i-ext"/></svg>Abrir en Sheets</a>
+    </div>
+    <div class="sheet-empty" id="sheetEmpty">
+      <svg class="big" aria-hidden="true"><use href="#i-table"/></svg>
+      <h3>Falta embeber la planilla de la Gantt</h3>
+      <p>Publiquen la planilla y peguen el enlace en <code>ganttSheetUrl</code> dentro de <code>assets/js/datos.js</code>.</p>
+      <ol class="steps">
+        <li><div>En Google Sheets: <b>Archivo → Compartir → Publicar en la Web</b>.</div></li>
+        <li><div>Elijan la hoja de la Gantt, la pestaña <b>Insertar</b> y presionen <b>Publicar</b>.</div></li>
+        <li><div>Copien la dirección que está dentro de <code>src="…"</code> (termina en <code>/pubhtml?…</code>) y péguenla en <code>ganttSheetUrl</code>.</div></li>
+      </ol>
+    </div>
+    <iframe class="sheet-frame" id="sheetFrame" title="Carta Gantt del equipo en Google Sheets" hidden loading="lazy"></iframe>
+  </div>
+
+  <h2>8.2 Cronograma de referencia</h2>
+  <p>Planificación institucional sugerida. Sirve de base para armar la Gantt del equipo.</p>
+  <div class="gantt-legend" id="ganttLegend"></div>
+  <div class="gantt" id="gantt-chart" tabindex="0" aria-label="Carta Gantt, se puede desplazar horizontalmente"></div>
+  <p style="font-size:13.5px;color:var(--text-2)">◆ Hito / entregable · Línea roja: hoy · Rayado: receso invernal. En pantallas chicas la tabla se desplaza hacia el costado.</p>
+  
+</section>
+
+<!-- ================================================================ 9 ENTREGABLES -->
+<section class="page" id="entregables" data-group="2 · Planificación" data-title="Entregables e hitos" data-num="9">
+  <p class="eyebrow">Segunda sección</p>
+  <h1>9. Entregables e hitos</h1>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Etapa</th><th>Período</th><th>Entregable</th></tr></thead>
+    <tbody>
+      <tr><td>1 · Lanzamiento y análisis</td><td>Marzo – Abril</td><td>Anteproyecto, diagrama inicial, propuesta de módulos</td></tr>
+      <tr><td>2 · Diseño técnico</td><td>Abril – Mayo</td><td>Diseño del nodo, plan técnico por laboratorio, primer BOM</td></tr>
+      <tr><td>3 · Prototipo funcional</td><td>Junio – Julio</td><td>Demo parcial funcional</td></tr>
+      <tr><td>4 · Integración</td><td>Agosto – Septiembre</td><td>Versión beta del sistema</td></tr>
+      <tr><td>5 · Producto final</td><td>Octubre</td><td>Versión candidata final</td></tr>
+      <tr><td>6 · Presentación y defensa</td><td>Noviembre</td><td>Producto final, documentación completa, exposición</td></tr>
+    </tbody>
+  </table></div>
+  <div class="grid-2">
+    <div class="card">
+      <h3 style="margin-top:0">Entregables mínimos</h3>
+      <ul class="checklist">
+        <li>Carpeta del proyecto (este sitio)</li><li>Documento técnico general</li><li>Diagrama de arquitectura</li><li>Esquema eléctrico</li><li>Firmware comentado</li>
+        <li>Dashboard operativo</li><li>Servidor documentado</li><li>Lista de materiales</li><li>Bitácora de pruebas</li><li>Presentación final</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3 style="margin-top:0">Entregables opcionales</h3>
+      <ul><li>Video demo</li><li>Manual de usuario</li><li>Maqueta 3D del gabinete</li><li>Sitio web del proyecto</li><li>Identidad gráfica y logo</li></ul>
+      <h3>Presentación tipo feria</h3>
+      <ul><li>Puesto central de monitoreo con el sistema en tiempo real</li><li>Afiche o panel, video breve</li><li>Defensa interdisciplinaria</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ 10 ARQUITECTURA -->
+<section class="page" id="arquitectura" data-group="3 · Diseño técnico" data-title="Arquitectura del sistema" data-num="10">
+  <p class="eyebrow">Tercera sección</p>
+  <h1>10. Arquitectura del sistema</h1>
+  <p class="lead">Recorrido de un dato desde que lo mide el sensor hasta que aparece en el dashboard, y qué asignatura es responsable de cada tramo.</p>
+  <figure class="diagram">
+    <svg class="arq" viewBox="0 0 910 252" role="img" aria-labelledby="arqT">
+      <title id="arqT">Flujo lógico: sensores, ESP32, WiFi, broker MQTT, backend y base de datos, dashboard</title>
+      <rect class="d-dash" x="6" y="8" width="898" height="140" rx="12"/>
+      <text class="d-small" x="20" y="28" style="fill:var(--a-seginfo)">SEGURIDAD INFORMÁTICA · usuarios, ACL, TLS, hardening y backups en todo el recorrido</text>
+      <g>
+        <rect class="d-box" x="20" y="46" width="120" height="64" rx="8"/><text class="d-title" x="80" y="74" text-anchor="middle">Sensores</text><text class="d-small" x="80" y="91" text-anchor="middle">DHT22 + específico</text>
+        <rect class="d-accent" x="170" y="46" width="120" height="64" rx="8"/><text class="d-title" x="230" y="74" text-anchor="middle">ESP32 + LCD</text><text class="d-small" x="230" y="91" text-anchor="middle">firmware</text>
+        <rect class="d-box" x="320" y="46" width="120" height="64" rx="8"/><text class="d-title" x="380" y="74" text-anchor="middle">Red WiFi</text><text class="d-small" x="380" y="91" text-anchor="middle">WPA2 · red IoT</text>
+        <rect class="d-box" x="470" y="46" width="120" height="64" rx="8"/><text class="d-title" x="530" y="74" text-anchor="middle">Broker MQTT</text><text class="d-small" x="530" y="91" text-anchor="middle">Mosquitto</text>
+        <rect class="d-box" x="620" y="46" width="120" height="64" rx="8"/><text class="d-title" x="680" y="74" text-anchor="middle">Backend + BD</text><text class="d-small" x="680" y="91" text-anchor="middle">Node-RED · InfluxDB</text>
+        <rect class="d-box" x="770" y="46" width="120" height="64" rx="8"/><text class="d-title" x="830" y="74" text-anchor="middle">Dashboard</text><text class="d-small" x="830" y="91" text-anchor="middle">web / Grafana</text>
+      </g>
+      <!-- flujo de datos: trazos que avanzan a velocidad constante -->
+      <g class="flow-lines">
+        <path class="flow-line" d="M142 78 H165" marker-end="url(#arrow)"/><path class="flow-line" d="M292 78 H315" marker-end="url(#arrow)"/>
+        <path class="flow-line" d="M442 78 H465" marker-end="url(#arrow)"/><path class="flow-line" d="M592 78 H615" marker-end="url(#arrow)"/><path class="flow-line" d="M742 78 H765" marker-end="url(#arrow)"/>
+      </g>
+      <!-- responsabilidades por asignatura -->
+      <g class="resp">
+        <path d="M20 172 H290" style="stroke:var(--a-hardware)"/><text x="20" y="190" style="fill:var(--a-hardware)">LAB. HARDWARE · nodo físico</text>
+        <path d="M320 172 H740" style="stroke:var(--a-so)"/><text x="320" y="190" style="fill:var(--a-so)">LAB. SISTEMAS OPERATIVOS · red, servidor y servicios</text>
+        <path d="M770 172 H890" style="stroke:var(--a-aplicaciones)"/><text x="770" y="190" style="fill:var(--a-aplicaciones)">LAB. APLICACIONES</text>
+        <path d="M170 220 H590" style="stroke:var(--a-desarrollo)"/><text x="170" y="238" style="fill:var(--a-desarrollo)">DESARROLLO DE SOFTWARE · firmware y mensajes MQTT</text>
+      </g>
+    </svg>
+    <figcaption>Sensores → ESP32 → WiFi → Broker MQTT → Backend / Base de datos → Dashboard.</figcaption>
+  </figure>
+
+  <h2>Topología</h2>
+  <p>Topología en <b>estrella</b>: todos los nodos IoT se comunican con un único servidor central, que concentra la base de datos. Si un nodo falla, el resto sigue funcionando; si falla el servidor, se detiene el registro (por eso importan los backups y la reconexión automática).</p>
+  <h2>Plataforma central (primera implementación)</h2>
+  <p>El nodo publica sus datos por MQTT en el broker Mosquitto del Dashboard general de la institución, protegido con usuario y clave, a través de la red WiFi. El dashboard del nodo se conecta a ese mismo broker mediante MQTT sobre WebSockets y se ve en el navegador, en PC y celular. Además, el propio ESP32 ofrece una página con sus datos en formato JSON (ruta <code>/data</code>).</p>
+
+  <h2>Tópicos MQTT del nodo</h2>
+  <p>El nodo se conecta a la red WiFi de contingencia de la institución y publica en el broker MQTT del Dashboard general, cada 2 segundos o de inmediato cuando cambia una alarma.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Tópico</th><th>Contenido</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">6to_info/A/G3/temperatura</td><td>Temperatura en °C (DHT22)</td></tr>
+      <tr><td class="mono">6to_info/A/G3/humedad</td><td>Humedad relativa en % (DHT22)</td></tr>
+      <tr><td class="mono">6to_info/A/G3/gases</td><td>Lectura filtrada del MQ-2 (ADC, 0 a 4095 y luego se pasa a un porcentaje)</td></tr>
+      <tr><td class="mono">6to_info/A/G3/llama</td><td>1 si detecta fuego, 0 si no</td></tr>
+      <tr><td class="mono">6to_info/A/G3/posicion</td><td>1 si el MPU6050 detecta un movimiento brusco, 0 si no</td></tr>
+      <tr><td class="mono">campus/lab-hardware/siniestro/telemetria</td><td>Mensaje JSON completo: temperatura, humedad, gases, llama, presencia, posicion, rssi y uptime</td></tr>
+      <tr><td class="mono">HTTP /data</td><td>JSON para la página web del nodo: temp, humidity, gasAlert, flameAlert y motion</td></tr>
+    </tbody>
+  </table></div>
+  <p style="font-size:14.5px;color:var(--text-2)">Un <b>JSON</b> es un texto que junta varios datos en un solo mensaje, por ejemplo <code>{"temperatura":24.5,"humedad":48}</code>. Además de los tópicos sueltos, el nodo manda este mensaje completo, que incluye la señal WiFi y el tiempo encendido. Para el movimiento, el dashboard también recibe la aceleración en g, de la que deduce la presencia.</p>
+  
+</section>
+
+<!-- ================================================================ 11 PLANO -->
+<section class="page" id="plano" data-group="3 · Diseño técnico" data-title="Plano de diseño" data-num="11">
+  <p class="eyebrow">Tercera sección</p>
+  <h1>11. Plano de diseño</h1>
+  <p class="lead">Plano del nodo IoT (vista frontal e interior), conexiones eléctricas y mapa de ubicación de los nodos en la escuela.</p>
+
+  <h2>11.1 Plano del nodo</h2>
+  <p>El nodo va dentro de una <b>caja estanca de 115 x 115 x 100 mm</b>. En la caja se perforaron los lugares del display LCD y de los sensores. Adentro, una placa experimental soldada lleva los pines hembra para el ESP32-C3 Mini, las borneras de 5 V, 3,3 V y GPIO, y el regulador de tensión LM7805.</p>
+ <div class="grid-2">
+  <figure class="card">
+    <img src="assets/img/planos/layout-exterior.jpeg" alt="Plano1" style="width:100%;height:auto">
+    <figcaption>Plano de la caja en su exterior</figcaption>
+  </figure>
+  <figure class="card">
+    <img src="assets/img/planos/layout-interior.jpeg" alt="Plano2" style="width:100%;height:auto">
+    <figcaption>Plano de la caja en su interior. Muestra el cargador portatil, la placa experimental y los componentes que sobresalen de la caja.</figcaption>
+  </figure>
+  <!-- los demás figure, todos adentro del mismo div -->
+</div>
+
+
+  <h2>11.2 Conexiones del nodo</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Componente</th><th>Pin del componente</th><th>Conexión</th><th>Notas</th></tr></thead>
+    <tr><td>Alimentación</td><td>Batería → LM7805</td><td>5 V para el ESP32-C3 Mini, el display LCD y el MQ-2. El ESP entrega 3,3 V al DHT22, al MPU6050 y al sensor de llama</td><td>El LM7805 reemplazó al módulo step-down que se quemó. Voltaje verificado con multímetro. NUEVO: Ya no se usa más la batería de 12V, ahora usamos una batería portátil de 5V</td></tr>
+    <tbody>
+      <tr><td>DHT22</td><td>DATA</td><td>GPIO 2</td><td>Temperatura y humedad. Alimentado con 3,3 V</td></tr>
+      <tr><td>LCD 16x2 (I2C)</td><td>SDA / SCL</td><td>GPIO 8 / GPIO 9</td><td>Dirección I2C 0x27. Alimentado con 5 V</td></tr>
+      <tr><td>MPU6050 (I2C)</td><td>SDA / SCL</td><td>GPIO 8 / GPIO 9</td><td>Comparte el bus con el LCD (dirección 0x68). Alimentado con 3,3 V</td></tr>
+      <tr><td>MQ-2</td><td>AO</td><td>GPIO 1</td><td>Lectura analógica de 0 a 4095; precalentamiento de 60 s. Alimentado con 5 V</td></tr>
+      <tr><td>Sensor de llama IR</td><td>AO</td><td>GPIO 0</td><td>Lectura analógica; con fuego el valor de las radiaciones infrarrojas baja. Alimentado con 3,3 V</td></tr>
+      <tr><td>Pulsador</td><td>No aplica</td><td>GPIO 4</td><td>Entrada con pull-up interno; cambia de página en el LCD y reinicia el ESP32-C3 Mini</td></tr>
+    </tbody>
+  </table></div>
+  <figure class="card" style="margin-top:16px">
+  <img src="assets/img/planos/esquema-electrico.jpeg" alt="Esquema eléctrico del nodo Siniestro (Referencia, NO ES EL ESQUEMA OFICIAL, debemos de cambiar el ESP a uno mini y pasar las conexiones a la placa experimental)" style="width:100%;height:auto">
+  <figcaption>Esquema eléctrico del nodo: conexión de cada componente al ESP32-C3 Mini y alimentación con el regulador LM7805.</figcaption>
+</figure>
+  <h2>11.3 Mapa de nodos</h2>
+  <figure class="diagram">
+    <svg viewBox="0 0 900 470" role="img" aria-labelledby="mapaT" id="mapaNodos">
+      <title id="mapaT">Plano esquemático de la escuela con la ubicación de los nodos y el servidor central</title>
+      <g class="d-box">
+        <rect x="20" y="20" width="200" height="150"/><rect x="230" y="20" width="200" height="150"/><rect x="440" y="20" width="220" height="150"/><rect x="670" y="20" width="210" height="150"/>
+        <rect x="20" y="180" width="860" height="60"/>
+        <rect x="450" y="250" width="200" height="110"/><rect x="660" y="250" width="220" height="110"/>
+      </g>
+      <rect class="d-dash" x="20" y="250" width="420" height="200" rx="6"/>
+      <g class="d-small">
+        <text x="30" y="40">AULA 1</text><text x="240" y="40">AULA 2</text><text x="450" y="40">LAB. HARDWARE</text><text x="680" y="40">SALA DE INFORMÁTICA</text>
+        <text x="30" y="200">PASILLO / SUM</text><text x="30" y="270">PATIO · HUERTA (exterior)</text><text x="460" y="270">SALA DE SERVIDORES</text><text x="670" y="270">DIRECCIÓN · TABLERO</text>
+      </g>
+      <g class="d-dash" id="enlaces"></g>
+      <rect class="d-box" x="574" y="296" width="56" height="46" rx="4" stroke-width="2"/><text class="d-title" x="602" y="323" text-anchor="middle" font-size="11">SRV</text>
+      <g id="nodosMapa"></g>
+      <g>
+        <rect x="690" y="380" width="190" height="70" rx="6" class="d-box"/>
+        <circle cx="706" cy="400" r="7" class="d-box"/><text class="d-small" x="720" y="404">Nodo IoT</text>
+        <circle cx="706" cy="422" r="7" class="d-accent"/><text class="d-small" x="720" y="426">Nodo de este equipo</text>
+        <path class="d-dash" d="M700 442 h14"/><text class="d-small" x="720" y="446">WiFi → servidor</text>
+      </g>
+    </svg>
+    <figcaption>Esquema orientativo, no a escala. NO REALIZADO AUN.</figcaption>
+  </figure>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Nodo</th><th>Ubicación propuesta</th><th>Sensor específico</th><th>Base común</th></tr></thead>
+    <tbody id="tablaNodos"></tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================ 12 COMPONENTES -->
+<section class="page" id="componentes" data-group="3 · Diseño técnico" data-title="Componentes" data-num="12">
+  <p class="eyebrow">Tercera sección</p>
+  <h1>12. Componentes</h1>
+  <p class="lead">El nodo Siniestro usa la <b>base común</b> de todos los nodos (ESP32, temperatura + humedad y display LCD) y suma tres <b>sensores propios</b> para detectar humo y gas, fuego y movimiento brusco.</p>
+  <h2>Base común de todos los nodos</h2>
+  <div class="grid" id="compBase"></div>
+  <h2>Sensores del nodo Siniestro</h2>
+  <div class="grid" id="compEsp"></div>
+ 
+</section>
+
+<!-- ================================================================ 13 DASHBOARD -->
+<section class="page" id="dashboard" data-group="3 · Diseño técnico" data-title="Diseño de la aplicación" data-num="13">
+  <p class="eyebrow">Tercera sección · Laboratorio de Aplicaciones</p>
+  <h1>13. Diseño de la aplicación (dashboard)</h1>
+  <p class="lead">Tablero central con el estado de cada sector en tiempo real, históricos y alertas. Debe poder verse en una PC, una pantalla institucional y un celular.</p>
+  <h2>Dashboard del nodo</h2>
+  <p>El dashboard del nodo sigue la orientación de la profesora: tema oscuro, encabezado con estado, tarjetas de indicadores, semáforo, histórico de 24 horas, alertas y salud del nodo (señal WiFi, tiempo encendido, mensajes por minuto y tópico). Recibe los datos por MQTT sobre WebSockets y tiene un modo simulado para probarlo sin el nodo.</p>
+  <h2>Wireframe</h2>
+  <h2>Capturas del dashboard</h2>
+<div class="grid-2">
+  <figure class="card">
+    <img src="assets/img/dashboard/captura1-pc.jpeg" alt="Dashboard del nodo Siniestro en computadora" style="width:100%;height:auto">
+    <figcaption>Vista de escritorio.</figcaption>
+  </figure>
+  <figure class="card">
+    <img src="assets/img/dashboard/captura2-pc.jpeg" alt="Dashboard del nodo Siniestro en computadora" style="width:100%;height:auto">
+    <figcaption>Vista de escritorio.</figcaption>
+  </figure>
+  <figure class="card">
+    <img src="assets/img/dashboard/captura3-pc.jpeg" alt="Dashboard del nodo Siniestro en computadora" style="width:100%;height:auto">
+    <figcaption>Vista de escritorio.</figcaption>
+  </figure>
+  <figure class="card">
+    <img src="assets/img/dashboard/captura1-cel.jpeg" alt="Dashboard del nodo Siniestro en celular" style="width:100%;height:auto">
+    <figcaption>Vista móvil.</figcaption>
+  </figure>
+  <figure class="card">
+    <img src="assets/img/dashboard/captura2-cel.jpeg" alt="Dashboard del nodo Siniestro en celular" style="width:100%;height:auto">
+    <figcaption>Vista móvil.</figcaption>
+  </figure>
+  <figure class="card">
+    <img src="assets/img/dashboard/captura3-cel.jpeg" alt="Dashboard del nodo Siniestro en celular" style="width:100%;height:auto">
+    <figcaption>Vista móvil.</figcaption>
+  </figure>
+  <figure class="card">
+    <img src="assets/img/dashboard/captura4-cel.jpeg" alt="Dashboard del nodo Siniestro en celular" style="width:100%;height:auto">
+    <figcaption>Vista móvil.</figcaption>
+  </figure>
+  <figure class="card">
+    <img src="assets/img/dashboard/captura5-cel.jpeg" alt="Dashboard del nodo Siniestro en celular" style="width:100%;height:auto">
+    <figcaption>Vista móvil.</figcaption>
+  </figure>
+</div>
+  <h2>Semáforo por variable</h2>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Variable</th><th>Normal</th><th>Atención</th><th>Alerta</th></tr></thead>
+    <tbody>
+      <tr><td>Gases y humo (MQ-2, ADC)</td><td>&lt; 550</td><td>550 – 700</td><td>&gt; 700</td></tr>
+      <tr><td>Llama (sensor IR)</td><td>Sin llama</td><td>Sin nivel</td><td>Promedio de 8 lecturas &lt; 190 durante 2 s</td></tr>
+      <tr><td>Movimiento (MPU6050)</td><td>Sin movimiento</td><td>Variación &gt; 2,5 m/s² respecto de la gravedad</td><td>2,5 m/s² respecto de la gravedad</td></tr>
+      <tr><td>Temperatura (referencia de la plantilla)</td><td>18 – 26 °C</td><td>16 – 18 / 26 – 30 °C</td><td>&lt; 16 / &gt; 30 °C</td></tr>
+      <tr><td>Humedad relativa (referencia de la plantilla)</td><td>40 – 60 %</td><td>30 – 40 / 60 – 70 %</td><td>&lt; 30 / &gt; 70 %</td></tr>
+      <tr><td>Nodo</td><td>Datos hace &lt; 2 min</td><td>2 – 5 min</td><td>Desconectado &gt; 5 min</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Cómo se definieron los umbrales de gas y movimiento</h3>
+
+<h4>MQ-2 (gases combustibles y humo)</h4>
+<ul>
+
+  <li><b>Umbral de alerta:</b> la lectura filtrada del ADC (escala de 0 a 4095) tiene que superar <b>700</b>. La alerta se libera cuando baja de <b>550</b>. Esa diferencia de 150 se llama histéresis y evita que la alarma se active y se apague a cada rato.</li>
+  <li><b>Precalentamiento:</b> el MQ-2 necesita calentarse para dar lecturas estables, por eso durante los primeros 60 segundos no se emiten alertas de gas.</li>
+  <li><b>Cómo se eligió el valor:</b> con mediciones en el aula. El código tiene un <i>modo calibración</i> que imprime por el monitor serie una lectura por segundo, para medir y elegir el umbral. En la demo se verifica superando 700 y volviendo a bajar de 550.</li>
+  <li><b>Valores medidos:</b> aire limpio: 220 apróx (6% en porcentaje, como muestra el display). Con humo o gas: +700 (15%).</li>
+</ul>
+
+<h4>MPU6050 (acelerómetro)</h4>
+<ul>
+  <li><b>Umbral de movimiento:</b> se detecta un golpe o una sacudida cuando la aceleración varía más de <b>2,5 m/s²</b> respecto de la gravedad (9,81 m/s²), es decir, cerca de 0,25 g. El rango del sensor es de ±2 g.</li>
+  <li><b>Muestreo:</b> el acelerómetro se lee cada 100 ms, y el movimiento se mantiene como detectado durante 3 segundos desde el último golpe.</li>
+  <li><b>Cómo se verificó:</b> sacudiendo la caja del nodo y comprobando que se registre la alerta.</li>
+</ul>
+<h4>Sensor de llama IR (KY-026)</h4>
+<ul>
+  <li><b>Cómo lee:</b> se usa la salida analógica (AO). Con fuego el valor de la lectura <b>baja</b>. Se toma una muestra cada 100 ms y se promedian las últimas 8 lecturas.</li>
+  <li><b>Umbral de alerta:</b> se declara fuego si el promedio queda por debajo de <b>190</b> durante <b>2 segundos seguidos</b> (20 lecturas). La alarma se libera tras <b>3 segundos</b> sin señal, y tiene una histéresis de 20 para que no se active y se apague a cada rato.</li>
+  <li><b>Cómo se eligió el valor:</b> con mediciones en un aula con luz normal, con sol directo sobre el sensor y frente a una llama real. Con la luz normal del aula el sensor marcó entre 210 y 250, y frente a la llama entre 150 y 200. El 190 queda en el medio.</li>
+  <li><b>Filtro contra el sol:</b> la llama parpadea y el sol no. Por eso, además de bajar del umbral, el valor tiene que variar (diferencia entre máximo y mínimo de la ventana de al menos 150 cuentas). Este filtro está activado en el código.</li>
+  <li><b>Estado:</b> el umbral es <b>provisorio</b>. Falta proteger el sensor de la luz ambiente, porque los valores del aula y de la llama están cerca.</li>
+</ul>
+</section>
+
+<!-- ================================================================ 14 PRESUPUESTO -->
+<section class="page" id="presupuesto" data-group="4 · Seguimiento" data-title="Presupuesto y BOM" data-num="14">
+  <p class="eyebrow">Seguimiento</p>
+  <h1>14. Presupuesto y lista de materiales (BOM)</h1>
+  <p class="lead">Costo de un nodo. Multipliquen por la cantidad de nodos y sumen el servidor si hay que comprarlo.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Ítem</th><th class="num">Cant.</th><th class="num">Precio unit.</th><th class="num">Subtotal</th></tr></thead>
+    <tbody id="tablaBOM"></tbody>
+  </table></div>
+  <div class="callout todo">
+    <strong><svg class="icon"><use href="#i-edit"/></svg>Aclaración</strong>
+    <p>Los precios salen de la bitácora y se cotizaron en Mercado Libre. Se compró en tres tandas: el 16 y 17 de junio, del 18 al 24 de agosto (junto con otro equipo, para compartir el envío) y el 5 de octubre (pines hembra). La carta Gantt registra $ 33.595 y $ 48.540 para las dos primeras, que suman $ 82.135.</p>
+    <p>Esa cifra es mayor que los $ 67.951 de la tabla porque entre las compras hay un sensor que finalmente no se usa, y porque de la segunda compra no quedó registrado lo que se pagó: esos precios se volvieron a buscar en internet y pueden diferir un poco. Además, el precio del envío en la 2da compra no es incluido en la tabla.</p>
+  </div>
+</section>
+
+<!-- ================================================================ 15 PRUEBAS -->
+<section class="page" id="pruebas" data-group="4 · Seguimiento" data-title="Bitácora de pruebas" data-num="15">
+  <p class="eyebrow">Seguimiento</p>
+  <h1>15. Bitácora de pruebas</h1>
+  <p class="lead">Evidencia técnica de que el sistema funciona: qué se probó, qué se esperaba y qué pasó.</p>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Fecha</th><th>Prueba</th><th>Resultado esperado</th><th>Resultado obtenido</th><th>Estado</th></tr></thead>
+    <tbody id="tablaPruebas"></tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================ 16 RESULTADOS -->
+<section class="page" id="resultados" data-group="4 · Seguimiento" data-title="Resultados y mejoras" data-num="16">
+  <p class="eyebrow">Seguimiento</p>
+  <h1>16. Resultados y mejoras futuras</h1>
+  <h2>Resultados</h2>
+  <p><b>Nivel 1.</b> Según los registros del equipo:</p>
+  <ul>
+    <li>El ESP32-C3 Mini está conectado y lee cuatro sensores: MQ-2, sensor de llama IR, MPU6050 y DHT22.</li>
+    <li>Publica por MQTT en el broker del Dashboard general. La primera prueba exitosa fue el 23/10 y el 06/11 se verificó que todos los datos llegan correctamente.</li>
+    <li>Los datos se visualizan en el Dashboard del grupo y en la página web propia del nodo, que registra correctamente todos los datos.</li>
+  </ul>
+  <p><b>Nivel 2.</b> El equipo avanzó con el gabinete: la caja estanca ya está perforada y falta el montaje definitivo de los componentes.</p>
+  <h3>Problemas encontrados y cómo se resolvieron</h3>
+  <div class="table-wrap"><table>
+    <thead><tr><th>Problema</th><th>Cómo se resolvió</th><th>Estado</th></tr></thead>
+    <tbody>
+      <tr><td>Los pines del primer ESP quedaron soldados al revés.</td><td>Se consiguió otro ESP32-C3 Mini. El primero se corrigió con pines nuevos (29/10) y quedó de respaldo.</td><td>Resuelto</td></tr>
+      <tr><td>La asignación del nodo en Teams no coincidía con lo definido en clase.</td><td>Se reconfirmó el nodo Siniestro el 13/08.</td><td>Resuelto</td></tr>
+      <tr><td>Errores de sensor (Sensor Error) en las prácticas.</td><td>Era una mala asignación de pines en el código. Se solucionó verificando los GPIO.</td><td>Resuelto</td></tr>
+      <tr><td>La señal WiFi del ESP era muy baja.</td><td>Se soldó una antena (09/10) y se le dio forma de rulito para que capte mejor.</td><td>Resuelto</td></tr>
+      <tr><td>El cobre de la protoboard absorbía la señal.</td><td>Se retiró una pata de la antena, se sumaron cables y se montó el ESP sobre tiras de pines. Así se logró la primera prueba exitosa (23/10).</td><td>Resuelto</td></tr>
+      <tr><td>El módulo step-down entregaba 12 V en su salida de 5 V (se quemó).</td><td>Se reemplazó por un regulador LM7805, verificado con multímetro y probado con el ESP de respaldo (03 y 04/11).</td><td>Resuelto</td></tr>
+      <tr><td>El 29/10 la computadora no detectaba el puerto del ESP nuevo.</td><td>Había un resto de estaño de la soldadura de la antena. Al retirarlo se quemaron unas resistencias, pero el ESP siguió funcionando.</td><td>Resuelto</td></tr>
+      <tr><td>El 30/10 los datos del acelerómetro no llegaban al Dashboard.</td><td>Faltaba agregar el tópico en el Dashboard. Se agregó y hoy todos los datos llegan correctamente.</td><td>Resuelto</td></tr>
+      <tr><td>En la placa experimental el ESP tardaba muchísimo en conectarse al WiFi (05/11).</td><td>Se resoldaron las conexiones con el cobre cubierto, pero no alcanzó. La causa era la caída de voltaje al transmitir a la potencia por defecto (19,5 dBm). Al bajarla a 8,5 dBm el ESP se conecta y envía todos los datos (06/11).</td><td>Resuelto</td></tr>
+      <tr><td>Diferencias de organización entre los integrantes: la dispersión en clase afectaba el aporte al trabajo.</td><td>Se resolvieron hablando con los profesores y asignando tareas para empezar a trabajar al inicio de cada clase, cada uno enfocado en algo distinto.</td><td>Resuelto</td></tr>
+      <tr><td>Con el nodo conectado solo a la batería, sin USB, el display LCD titila.</td><td>Se comprobó que no es un error del display. Parece que la batería se descargó: falta probar otra batería o verificar las conexiones. Optamos por usar una batería portátil de 5V</td><td>Resuelto</td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout todo">
+    <strong><svg class="icon"><use href="#i-edit"/></svg>A completar por el equipo</strong>
+    <p>Faltan los datos reales que midió el nodo, con los gráficos del histórico, y la prueba completa con el nodo armado en la caja.</p>
+  </div>
+  <h2>Mejoras futuras</h2>
+  <ul>
+    <li>Actualización de firmware por OTA.</li>
+    <li>Notificaciones de alertas por correo o mensajería.</li>
+    <li>Módulo de consumo energético con sensor no invasivo.</li>
+    <li>Análisis estadístico del histórico (promedios, picos, horarios críticos).</li>
+    <li>Más nodos y una pantalla de monitoreo permanente en la escuela.</li>
+    <li>Cruzar los datos de varios sensores para reducir las falsas alarmas, en la estación principal o dentro del nodo.</li>
+    <li>Proteger el sensor de llama de la luz ambiente y ajustar su umbral.</li>
+    <li>Definir un umbral de alerta de temperatura.</li>
+  </ul>
+</section>
+
+<!-- ================================================================ 17 GUÍA -->
+<section class="page page-guia" id="guia" data-group="Guía de uso" data-title="Cómo usar esta documentación" data-num="17">
+  <p class="eyebrow">Manual de usuario</p>
+  <h1><span class="guide-badge" aria-hidden="true"><svg class="icon"><use href="#i-book"/></svg></span>17. Cómo usar esta documentación</h1>
+  <p class="lead">Instrucciones para que el equipo complete, actualice y publique su carpeta del proyecto.</p>
+  <h2>Editar los datos del equipo</h2>
+  <ol class="steps">
+    <li><div>Abran <code>assets/js/datos.js</code> con un editor de código (por ejemplo VS Code).</div></li>
+    <li><div>Completen nombre del equipo, curso, <b>nodo asignado</b> e integrantes con el formato <code>"Apellido, Nombre"</code>.</div></li>
+    <li><div>Publiquen la planilla de la Gantt en Google Sheets y peguen el enlace en <code>ganttSheetUrl</code> (ver <a href="#gantt">Carta Gantt</a>).</div></li>
+    <li><div>Actualicen la Gantt, el presupuesto, las pruebas y el control de cambios a medida que avanza el proyecto.</div></li>
+    <li><div>Los textos largos de cada apartado se editan directamente en <code>index.html</code>.</div></li>
+  </ol>
+  <h2>Publicar con GitHub Pages</h2>
+  <ol class="steps">
+    <li><div>Creen un repositorio en GitHub y suban esta carpeta completa.</div></li>
+    <li><div>En el repositorio: <b>Settings → Pages → Branch: main → / (root)</b> y guarden.</div></li>
+    <li><div>En uno o dos minutos la documentación queda en <code>https://usuario.github.io/repositorio/</code>.</div></li>
+    <li><div>Si el dashboard es una página web, súbanlo a otro repositorio (o a una carpeta <code>/app</code>) y copien su dirección en <code>previewUrl</code>.</div></li>
+  </ol>
+  <h2>Mostrar el dashboard en el visor</h2>
+  <ul>
+    <li><b>Página web propia</b> (HTML/CSS/JS, React, Vue): funciona directo con GitHub Pages o Netlify.</li>
+    <li><b>Grafana o Node-RED Dashboard</b> dentro de la escuela: solo se ve desde la red escolar. Para la feria, usen la dirección local del servidor (por ejemplo <code>http://192.168.1.50/</code>).</li>
+    <li>Si la página bloquea el visor, usen <b>Abrir en una pestaña nueva</b>.</li>
+  </ul>
+  <h2>Exportar a PDF</h2>
+  <p>Desde el navegador: <b>Imprimir → Guardar como PDF</b>. Se imprimen todos los apartados juntos.</p>
+</section>
+
+    <nav class="pager page" id="pager" aria-label="Apartado anterior y siguiente"></nav>
+  </main>
+</div>
+
+<footer class="site-footer">
+  <p><b data-bind="nombre"></b> · Documentación del proyecto · <span data-bind="equipo"></span></p>
+  <p>Proyecto Institucional 6to año <span data-bind="ciclo"></span> · <span data-bind="institucion"></span></p>
+</footer>
+
+<script src="assets/js/datos.js?v=6"></script>
+<script src="assets/js/app.js?v=6"></script>
+</body>
+</html>
