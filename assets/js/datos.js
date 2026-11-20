@@ -25,7 +25,7 @@ window.PROYECTO = {
 
   // Carta Gantt en Google Sheets: Archivo → Compartir → Publicar en la Web →
   // Insertar → copiar la dirección de src="…" (termina en /pubhtml?...)
-  ganttSheetUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vQQgMF3KB1QowS5CVha9DEVL77_hSCb2wllIN7_WDrzJZArQbPW7a4QFsHCjQsY3CEIkjGbxgX7urRC/pubhtml",
+  ganttSheetUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSdOcSqfFGbZJmleheFyeu2moJrL496ECrV2AZ62cSaAyqlKREUFupWWPt3WIOuTQ/pubhtml",
 
   // --- Integrantes (orden alfabético por apellido). rol = rol principal; apoyo = otras funciones ---
   integrantes: [
