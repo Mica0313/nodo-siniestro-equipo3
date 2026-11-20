@@ -20,8 +20,8 @@ window.PROYECTO = {
   // --- Acceso al proyecto ---
   // previewUrl: dirección pública del dashboard (GitHub Pages, Netlify, Grafana
   // con acceso público, etc.). Mientras esté vacía se muestra el aviso "sin publicar".
-  previewUrl: "",
-  repoUrl: "",                        // repositorio del código (GitHub)
+  previewUrl: "https://mica0313.github.io/nodo-siniestro-equipo3/dashboard/",
+  repoUrl: "https://github.com/Mica0313/nodo-siniestro-equipo3",                        // repositorio del código (GitHub)
 
   // Carta Gantt en Google Sheets: Archivo → Compartir → Publicar en la Web →
   // Insertar → copiar la dirección de src="…" (termina en /pubhtml?...)
